@@ -3,14 +3,16 @@ import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { mapWithMarkers, mapWithShapes } from '../actions/index';
 
-export default class PopoverExampleSimple extends React.Component {
+class PopoverExample extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
-      open: false,
+      open:false,
     };
   }
 
@@ -23,20 +25,7 @@ export default class PopoverExampleSimple extends React.Component {
     });
   };
 
-  handleRequestClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
-  mapWithMarkers(e){
-    e.preventDefault();
-    console.log('markers');
-    this.props.mapWithMarkers();
-  }
-  mapWithShapes(e){
-    e.preventDefault();
-    this.props.mapWithShapes();
-  }
+
   mapNothing(e){
     e.preventDefault();
     this.props.mapNothing();
@@ -53,11 +42,10 @@ export default class PopoverExampleSimple extends React.Component {
           anchorEl={this.state.anchorEl}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
-          onRequestClose={this.handleRequestClose}
         >
           <Menu>
-            <MenuItem onClick={this.mapWithMarkers.bind(this)} primaryText="Map with Markers" />
-            <MenuItem onClick={this.mapWithShapes.bind(this)} primaryText="Map with Shapes" />
+            <MenuItem onClick={this.props.mapWithMarkers} primaryText="Map with Markers" />
+            <MenuItem onClick={this.props.mapWithShapes} primaryText="Map with Shapes" />
             <MenuItem onClick={this.mapNothing.bind(this)} primaryText="Clear Map" />
           </Menu>
         </Popover>
@@ -65,3 +53,15 @@ export default class PopoverExampleSimple extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    markers:state.markers,
+    shapes:state.shapes
+  }
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({mapWithMarkers:mapWithMarkers,mapWithShapes:mapWithShapes}, dispatch);
+}
+
+export default connect(mapStateToProps,matchDispatchToProps)(PopoverExample);

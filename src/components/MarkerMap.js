@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup, Circle, CircleMarker, Polygon } from 'react-leaflet';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-export default class MarkerMap extends Component {
+class MarkerMap extends Component {
   render() {
     const lat = this.props.lat;
     const lng = this.props.lng
@@ -45,3 +47,14 @@ export default class MarkerMap extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  console.log('state: ',state);
+  return {
+    markers:state.markers,
+    shapes:state.shapes
+  }
+}
+
+
+export default connect(mapStateToProps)(MarkerMap);

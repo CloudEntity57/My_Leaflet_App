@@ -6,6 +6,24 @@ import MarkerMap from './components/MarkerMap';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+//redux
+
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createLogger } from 'redux-logger';
+import allReducers from './reducers';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { leafletApp } from './actions/index';
+
+const logger = createLogger();
+const store = createStore(
+  combineReducers({
+    allReducers
+  }),
+  applyMiddleware(logger)
+);
+
 injectTapEventPlugin();
 
 class App extends Component{
@@ -38,38 +56,34 @@ class App extends Component{
     });
   }
   render(){
-    let shapes = (this.state.shapes) ? this.state.shapes : '';
-    const polygon = [[51.515, -0.09], [51.52, -0.1], [51.52, -0.12]];
-    const rectangle = [
-      [[51.51, -0.11], [51.51, -0.1], [51.49, -0.1],[51.49, -0.11]]
-    ];
-    const position2 = [51.512,-0.10];
-    const center = [51.505, -0.09];
-    const center2 = [51.51, -0.12];
-    const lat = 51.505;
-    const lng = -0.09;
-    const zoom = 13;
-    const radius = 200;
-    const radius2 = 20;
-    const blue = "blue";
-    const red = "red";
-    const purple = "purple";
-    const green = "green";
-    let props = {
-      shapes,polygon,rectangle,position2,center,center2,lat,lng,zoom,blue,red,purple,green,radius,radius2
-    }
+
+    // let props = {
+    //   shapes,polygon,rectangle,position2,center,center2,lat,lng,zoom,blue,red,purple,green,radius,radius2
+    // }
     return(
       <MuiThemeProvider>
         <div>
           <MainAppBar mapNothing={this.mapNothing.bind(this)} mapWithShapes={this.mapWithShapes.bind(this)} mapWithMarkers={this.mapWithMarkers.bind(this)}/>
-          <MarkerMap {...props} markers={this.state.markers}/>
+          <MarkerMap  />
         </div>
       </MuiThemeProvider>
     )
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    state:state
+  }
+}
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({leafletApp:leafletApp}, dispatch);
+}
+
+App  = connect(mapStateToProps,matchDispatchToProps)(App);
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
