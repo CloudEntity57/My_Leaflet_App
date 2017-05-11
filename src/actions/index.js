@@ -1,3 +1,5 @@
+//attempted to set initial state and add map option actions, but I couldn't get them to change the global state.
+
 export const SET_INITIAL_STATE = "SET_INITIAL_STATE";
 export const spotifyApp = () => ({
   type:SET_INITIAL_STATE
