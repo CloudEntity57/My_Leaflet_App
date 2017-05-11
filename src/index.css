@@ -1,0 +1,17 @@
+html{
+  font-family: 'Roboto', sans-serif;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.navigation-button{
+  padding-top:1em;
+}
+
+.leaflet-container {
+  height: 400px;
+  width: 80%;
+  margin: 10vh auto;
+}
