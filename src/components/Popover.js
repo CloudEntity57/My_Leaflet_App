@@ -42,6 +42,7 @@ class PopoverExample extends React.Component {
           anchorEl={this.state.anchorEl}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}
         >
           <Menu>
             <MenuItem onClick={this.props.mapWithMarkers} primaryText="Map with Markers" />
