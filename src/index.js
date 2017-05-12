@@ -6,7 +6,7 @@ import MarkerMap from './components/MarkerMap';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-//redux dependencies - I got the state to update in another app, but this time around it kept my three functions' state variables in separate parts of the global state, under each function's name.
+//redux dependencies 
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
@@ -50,7 +50,7 @@ const mapStateToProps = (state) => {
   }
 }
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({leafletApp:leafletApp}, dispatch);
+    return bindActionCreators({}, dispatch);
 }
 
 App = connect(mapStateToProps,matchDispatchToProps)(App);

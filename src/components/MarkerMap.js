@@ -72,7 +72,7 @@ const mapStateToProps = (state) => {
   }
 }
 const matchDispatchToProps = (dispatch) =>{
-  return bindActionCreators({leafletApp:leafletApp},dispatch);
+  return bindActionCreators({},dispatch);
 }
 
 export default connect(mapStateToProps)(MarkerMap);
