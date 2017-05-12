@@ -6,7 +6,7 @@ import MarkerMap from './components/MarkerMap';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-//redux dependencies 
+//redux dependencies
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
@@ -14,7 +14,6 @@ import { createLogger } from 'redux-logger';
 import allReducers from './reducers';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { leafletApp } from './actions/index';
 
 const logger = createLogger();
 const store = createStore(

@@ -10,7 +10,7 @@ class MainAppBar extends Component{
         title="My Leaflet App (w Redux)"
         iconClassNameRight="muidocs-icon-navigation-expand-more"
         iconElementLeft={<div></div>}>
-        <Popover mapNothing={() => this.mapNothing()} mapWithShapes={() => this.mapWithShapes()} mapWithMarkers={() => this.mapWithMarkers()}/>
+        <Popover />
       </AppBar>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup, Circle, CircleMarker, Polygon } from 'react-leaflet';
 import { connect } from 'react-redux';
-import { leafletApp } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class MarkerMap extends Component {
