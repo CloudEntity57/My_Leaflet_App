@@ -5,7 +5,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { mapWithMarkers, mapWithShapes } from '../actions/index';
+import { mapWithMarkers, mapWithShapes, mapNothing } from '../actions/index';
 
 class PopoverExample extends React.Component {
 
@@ -16,6 +16,11 @@ class PopoverExample extends React.Component {
     };
   }
 
+  handleRequestClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
   handleTouchTap = (event) => {
     // This prevents ghost click.
     event.preventDefault();
@@ -24,12 +29,6 @@ class PopoverExample extends React.Component {
       anchorEl: event.currentTarget,
     });
   };
-
-
-  mapNothing(e){
-    e.preventDefault();
-    this.props.mapNothing();
-  }
 
   render() {
     return (
@@ -47,7 +46,7 @@ class PopoverExample extends React.Component {
           <Menu>
             <MenuItem onClick={this.props.mapWithMarkers} primaryText="Map with Markers" />
             <MenuItem onClick={this.props.mapWithShapes} primaryText="Map with Shapes" />
-            <MenuItem onClick={this.mapNothing.bind(this)} primaryText="Clear Map" />
+            <MenuItem onClick={this.props.mapNothing} primaryText="Clear Map" />
           </Menu>
         </Popover>
       </div>
@@ -62,7 +61,7 @@ const mapStateToProps = (state) => {
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({mapWithMarkers:mapWithMarkers,mapWithShapes:mapWithShapes}, dispatch);
+    return bindActionCreators({mapNothing:mapNothing,mapWithMarkers:mapWithMarkers,mapWithShapes:mapWithShapes}, dispatch);
 }
 
 export default connect(mapStateToProps,matchDispatchToProps)(PopoverExample);

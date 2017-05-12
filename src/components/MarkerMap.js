@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup, Circle, CircleMarker, Polygon } from 'react-leaflet';
 import { connect } from 'react-redux';
+import { leafletApp } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class MarkerMap extends Component {
   render() {
+    console.log( 'lat: ',this.props.lat);
     const lat = this.props.lat;
     const lng = this.props.lng
     const position = [lat,lng];
@@ -36,7 +38,7 @@ class MarkerMap extends Component {
     </div>
     ) : '';
     return (
-      <Map center={position} zoom={zoom}>
+      <Map center={this.props.center} zoom={zoom}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -47,14 +49,30 @@ class MarkerMap extends Component {
     );
   }
 }
-
 const mapStateToProps = (state) => {
+  state = state.allReducers.map;
   console.log('state: ',state);
   return {
+    shapes:state.shapes,
     markers:state.markers,
-    shapes:state.shapes
+    polygon:state.polygon,
+    rectangle:state.rectangle,
+    position2:state.position2,
+    center:state.center,
+    center2:state.center2,
+    lat:state.lat,
+    lng:state.lng,
+    zoom:state.zoom,
+    radius:state.radius,
+    radius2:state.radius2,
+    blue:state.blue,
+    red:state.red,
+    purple:state.purple,
+    green:state.green,
   }
 }
-
+const matchDispatchToProps = (dispatch) =>{
+  return bindActionCreators({leafletApp:leafletApp},dispatch);
+}
 
 export default connect(mapStateToProps)(MarkerMap);

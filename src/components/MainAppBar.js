@@ -3,15 +3,7 @@ import Popover from './Popover';
 import AppBar from 'material-ui/AppBar';
 
 class MainAppBar extends Component{
-  mapWithMarkers(){
-    this.props.mapWithMarkers();
-  }
-  mapWithShapes(){
-    this.props.mapWithShapes();
-  }
-  mapNothing(){
-    this.props.mapNothing();
-  }
+
   render(){
     return(
       <AppBar

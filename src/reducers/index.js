@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { SET_INITIAL_STATE, MAP_WITH_SHAPES, MAP_WITH_MARKERS } from '../actions/index';
+import { SET_INITIAL_STATE, MAP_WITH_SHAPES, MAP_WITH_MARKERS, MAP_NOTHING } from '../actions/index';
 
 const initialState = {
   shapes:false,
@@ -23,69 +23,43 @@ const initialState = {
   green:"green"
 }
 
-const leafletApp = (state = initialState,action) =>{
-  switch(action.type){
-    case SET_INITIAL_STATE:
-    return state;
-    break;
-    default:
-    return state;
-  }
-}
-const mapWithShapes = (state = {shapes:false,markers:false},action) =>{
-  switch(action.type){
-    case MAP_WITH_SHAPES:
+const mapWithShapes = (state) =>{
     return {
       ...state,
       shapes:true,
       markers:false
-    };
-    break;
-    default:
-    return state;
-  }
+    }
 }
-const mapWithMarkers = (state = {shapes:false,markers:false},action) =>{
-  switch(action.type){
-    case MAP_WITH_MARKERS:
+const mapWithMarkers = (state) =>{
     return {
       ...state,
       shapes:false,
       markers:true
-    };
-    break;
-    default:
-    return state;
-  }
+    }
+}
+const mapNothing = (state) =>{
+    return {
+      ...state,
+      shapes:false,
+      markers:false
+    }
 }
 const map = (state=initialState,action)=>{
   switch(action.type){
-    case SET_INITIAL_STATE:
-    return state;
-    break;
     case MAP_WITH_SHAPES:
-    return {
-      ...state,
-      shapes:true,
-      markers:false
-    };
+    return mapWithShapes(state);
     break;
     case MAP_WITH_MARKERS:
-    return {
-      ...state,
-      shapes:false,
-      markers:true
-    };
+    return mapWithMarkers(state);
     break;
+    case MAP_NOTHING:
+    return mapNothing(state);
     default:
     return state;
   }
 }
 const allReducers = combineReducers({
-    leafletApp:leafletApp,
-    mapWithMarkers:mapWithMarkers,
-    mapWithShapes:mapWithShapes,
-    map:map
+    map
 });
 
 export default allReducers;

@@ -6,7 +6,7 @@ import MarkerMap from './components/MarkerMap';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-//redux
+//redux dependencies - I got the state to update in another app, but this time around it kept my three functions' state variables in separate parts of the global state, under each function's name.
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
@@ -23,9 +23,7 @@ const store = createStore(
   }),
   applyMiddleware(logger)
 );
-
 injectTapEventPlugin();
-
 class App extends Component{
   constructor(props){
     super(props);
@@ -34,36 +32,12 @@ class App extends Component{
       markers:false
     }
   }
-  mapNothing(){
-    console.log('app level clear');
-    this.setState({
-      shapes:false,
-      markers:false
-    });
-  }
-  mapWithMarkers(){
-    console.log('app level');
-    this.setState({
-      shapes:false,
-      markers:true
-    });
-  }
-  mapWithShapes(){
-    console.log('app level');
-    this.setState({
-      shapes:true,
-      markers:false
-    });
-  }
-  render(){
 
-    // let props = {
-    //   shapes,polygon,rectangle,position2,center,center2,lat,lng,zoom,blue,red,purple,green,radius,radius2
-    // }
+  render(){
     return(
       <MuiThemeProvider>
         <div>
-          <MainAppBar mapNothing={this.mapNothing.bind(this)} mapWithShapes={this.mapWithShapes.bind(this)} mapWithMarkers={this.mapWithMarkers.bind(this)}/>
+          <MainAppBar />
           <MarkerMap  />
         </div>
       </MuiThemeProvider>
@@ -79,7 +53,7 @@ function matchDispatchToProps(dispatch){
     return bindActionCreators({leafletApp:leafletApp}, dispatch);
 }
 
-App  = connect(mapStateToProps,matchDispatchToProps)(App);
+App = connect(mapStateToProps,matchDispatchToProps)(App);
 
 ReactDOM.render(
   <Provider store={store}>
